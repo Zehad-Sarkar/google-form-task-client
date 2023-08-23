@@ -1,7 +1,9 @@
 import { FaUpload } from "react-icons/fa";
 import "..//../../src/App.css";
 import Swal from "sweetalert2";
+import { useRef } from "react";
 const Form = () => {
+  const reset = useRef();
   const handleSubmit = (e) => {
     e.preventDefault();
     const form = e.target;
@@ -73,6 +75,7 @@ const Form = () => {
       .then((res) => res.json())
       .then((data) => {
         if (data.insertedId) {
+        reset.current.reset();
           Swal.fire({
             position: "top-center",
             icon: "success",
@@ -84,7 +87,7 @@ const Form = () => {
       });
   };
   return (
-    <form onSubmit={handleSubmit}>
+    <form ref={reset} onSubmit={handleSubmit}>
       {/* this section for MCQ section */}
       <section className="mcq">
         <h2>MCQ *</h2>
